@@ -1,0 +1,59 @@
+name: incaria-example
+
+
+# Volumes are how we can persist data.  So even if you delete
+# the postgres container, the next time you start it up all the
+# data will still be there.
+volumes:
+  postgres-data:
+  
+services:
+  postgres:
+    container_name: postgres
+    image: 'postgres:16-alpine'
+    platform: linux/arm64  
+    env_file:
+      # Mounting an envrionment file into the container to define some
+      # initial configuration
+      - postgres.env
+
+    volumes:
+      # This is where we mount the volume into the container, at
+      # the location where postgres stores the database.
+      - postgres-data:/var/lib/postgresql/data/
+
+
+
+
+  web:
+    platform: linux/arm64  
+    container_name: web
+    # This sets the working directory when the container starts up.  Inside the
+    # container we will use /code as the directory that has our code.
+    working_dir: /code
+
+
+    # This volume binds the current directory (where this docker-compose.yml file
+    # is stored) to be mounted as the /code directory inside the container.
+    volumes:
+      - type: bind
+        source: ./
+        target: /code
+    image: python:3.12-alpine
+
+
+    # Since our django app needs the postgres database to be up, we specify that here.
+    depends_on:
+      - postgres
+    # postgres:
+    # condition: service_started
+
+
+    # The port which should be exposed, which our web app will accept connections on.
+    ports:
+      - 8000:8000
+
+
+    # This is the command the container will run when it starts up.
+    command: sh /code/web_start.sh
+
