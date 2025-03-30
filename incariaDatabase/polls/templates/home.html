@@ -1,5 +1,11 @@
-{% extends "base.html" %} {% block title %} Home Page {% endblock %}
+{% extends "base.html" %}
+{% block title %}Home - Incaria Database{% endblock %}
 {% block content %}
-<p>This is the home page of Incaria Database</p>
-
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to Incaria Database</h1>
+    <p class="lead">Manage and view healthcare data of our patients.</p>
+    <hr class="my-4">
+    <p>Click below to view and manage chronic condition records.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'incaria' %}" role="button">View Incaria Database</a>
+  </div>
 {% endblock %}

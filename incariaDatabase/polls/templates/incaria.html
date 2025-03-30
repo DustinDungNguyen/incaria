@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Incaria Database{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Incaria Database - Patients</h1>
+
+{% comment %}
+  We assume your view passes a context variable named "users"
+  which is a queryset of User objects. Each User is assumed
+  to have relationships or data to show Category and Condition.
+{% endcomment %}
+
+{% for user in users %}
+<div class="card mb-3">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0", style="color: #060606;">{{ user.name }} ({{ user.email }})</h5>
+  </div>
+  <div class="card-body">
+    <p><strong>Gender:</strong> {{ user.gender }}</p>
+    <p><strong>Age:</strong> {{ user.age }}</p>
+
+    <p><strong>Health conditions:</strong>
+      {% if user.health_conditions %}
+        {% for condition in user.health_conditions %}
+          <span class="badge badge-info">{{ condition }}</span>
+        {% endfor %}
+      {% else %}
+        <em>None</em>
+      {% endif %}
+    </p>
+
+    <p><strong>Health goals:</strong>
+      {% if user.health_goals %}
+        {% for goal in user.health_goals %}
+          <span class="badge badge-success">{{ goal }}</span>
+        {% endfor %}
+      {% else %}
+        <em>None</em>
+      {% endif %}
+    </p>
+
+    <p><strong>Motivators:</strong>
+      {% if user.motivators %}
+        {% for motivator in user.motivators %}
+          <span class="badge badge-secondary">{{ motivator }}</span>
+        {% endfor %}
+      {% else %}
+        <em>None</em>
+      {% endif %}
+    </p>
+
+    <p><strong>Provider code:</strong> {{ user.provider_code }}</p>
+    <p><strong>Active status:</strong> 
+      {% if user.active_status %}
+        <span class="text-success">Active</span>
+      {% else %}
+        <span class="text-danger">Inactive</span>
+      {% endif %}
+    </p>
+    <p><strong>Date joined:</strong> {{ user.date_joined|date:"F j, Y, g:i a" }}</p>
+
+    <hr />
+
+    {# EXAMPLE: Display related Categories for this user #}
+    <h5 class="mt-3 text-primary">Categories</h5>
+    {% if user.categories.all %}
+      <div class="row">
+        {% for cat in user.categories.all %}
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">{{ cat.category_name }}</h6>
+                <p class="card-text">
+                  {{ cat.description|default:"No description provided" }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No categories found.</p>
+    {% endif %}
+
+    <hr />
+
+    {# EXAMPLE: Display related Conditions for this user #}
+    <h5 class="mt-3 text-primary">Conditions</h5>
+    {% if user.conditions.all %}
+      <div class="row">
+        {% for cond in user.conditions.all %}
+          <div class="col-md-6 mb-2">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">{{ cond.name }}</h6>
+                <p class="card-text">
+                  <strong>Description:</strong> {{ cond.description|default:"No description provided" }}<br />
+                  <strong>Common Symptoms:</strong>
+                  {% if cond.common_symptoms %}
+                    {% for symptom in cond.common_symptoms %}
+                      <span class="badge badge-warning">{{ symptom }}</span>
+                    {% endfor %}
+                  {% else %}
+                    <em>None</em>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No conditions found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

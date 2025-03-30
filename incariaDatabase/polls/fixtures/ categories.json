@@ -1,0 +1,72 @@
+[
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Cardiovascular Diseases",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Metabolic Disorders",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Neurological Disorders",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Respiratory Diseases",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Autoimmune Diseases",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Musculoskeletal Disorders",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Kidney & Urinary Disorders",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Cancer",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Women’s Health Conditions",
+            "description": ""
+        }
+    },
+    {
+        "model": "polls.category",
+        "fields": {
+            "category_name": "Men’s Health Conditions",
+            "description": ""
+        }
+    }
+]
